@@ -1,0 +1,68 @@
+baseURL: https://emily5.com
+title: Emily Gomez
+defaultContentLanguage: 'en'
+googleAnalytics: ''
+
+params:
+  image: /images/banner.png
+  #copyright: All rights reserved.
+  author: Emily Gomez
+  dontShowSource: false # please, do not do this :)
+  portfolio:
+    columns:
+      desktop:
+        # art: 4
+        # archive: 6
+        graphic: 3
+        web: 2
+        default: 3
+      mobile:
+        default: 2
+        # archive: 3
+  socials:
+    - icon: 'far fa-envelope fa-lg'
+      url: 'mailto:emgnomez@gmail.com'
+    - icon: 'fab fa-github fa-lg'
+      url: 'https://github.com/emgnomez/'
+    - icon: 'fab fa-instagram fa-lg'
+      url: 'https://instagram.com/emgnomez'
+    - icon: 'fab fa-linkedin-in fa-lg'
+      url: 'https://linkedin.com/in/em-gomez'
+    - icon: 'fab fa-youtube fa-lg'
+      url: 'https://www.youtube.com/@emilygomez5390'
+  homepage: "/web" # homepage link, mostly same with menu.main[0]
+  bypassWelcomePage: false # redirects "/" to "homepage" when it's true.
+
+markup:
+  defaultMarkdownHandler: goldmark
+  goldmark:
+    renderer:
+      unsafe: true
+
+taxonomies:
+  tag: tags
+
+permalinks:
+  work: ":filename/"
+
+menu:
+  main:
+    - name: web
+      url: /tags/web/
+      weight: 1
+    - name: graphic
+      url: /tags/graphic/
+      weight: 2
+    # - name: case studies
+    #   url: https://www.dropbox.com/scl/fo/35pv60qx4hhoiuteyjqzr/h?dl=0&rlkey=80idtxw55f6jeyvatx70ahouj
+    #   weight: 3
+    # - name: art
+    #   url: /tags/art/
+    #   weight: 4
+    - name: about
+      url: /about/
+      weight: 4
+    - name: resume
+      url: https://www.dropbox.com/s/jzan87hixniopmq/2023.4.12_Emily_Gomez_Resume.pdf?dl=0
+      weight: 5
+   
