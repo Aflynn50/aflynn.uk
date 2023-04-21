@@ -1,31 +1,31 @@
 @font-face {
-    font-family: 'Hanken Grotesk Regular';
-    src: url('/fonts/HankenGrotesk/HankenGrotesk-Regular.ttf') format('truetype');
+    font-family: 'Heuristica Regular';
+    src: url('/fonts/Heuristica/Heuristica-Regular.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Hanken Grotesk Bold';
-    src: url('/fonts/HankenGrotesk/HankenGrotesk-Bold.ttf') format('truetype');
+    font-family: 'Heuristica Bold';
+    src: url('/fonts/Heuristica/Heuristica-Bold.otf') format('opentype');
     font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Hanken Grotesk Italic';
-    src: url('/fonts/HankenGrotesk/HankenGrotesk-Italic.ttf') format('truetype');
+    font-family: 'Heuristica Italic';
+    src: url('/fonts/Heuristica/Heuristica-Italic.otf') format('opentype');
     font-weight: normal;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'Hanken Grotesk Bold Italic';
-    src: url('/fonts/HankenGrotesk/HankenGrotesk-BoldItalic.ttf') format('truetype');
+    font-family: 'Heuristica Bold Italic';
+    src: url('/fonts/Heuristica/Heuristica-Bolditalic.otf') format('opentype');
     font-weight: bold;
     font-style: italic;
 }
 
 body {
-    font-family: "Hanken Grotesk Regular";
+    font-family: "Heuristica Regular";
 }

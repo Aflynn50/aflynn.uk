@@ -1,12 +1,13 @@
-baseURL: https://emily5.com
-title: Emily Gomez
+baseURL: http://aflynn.uk
+title: Alastair Flynn
 defaultContentLanguage: 'en'
 googleAnalytics: ''
 
 params:
-  image: /images/banner.png
+  image: '/images/banner.png'
   #copyright: All rights reserved.
-  author: Emily Gomez
+  author: Alastair Flynn
+  logo: 'camerame.jpg'
   dontShowSource: false # please, do not do this :)
   portfolio:
     columns:
@@ -15,23 +16,20 @@ params:
         # archive: 6
         graphic: 3
         web: 2
+        ny: 1
         default: 3
       mobile:
         default: 2
         # archive: 3
   socials:
     - icon: 'far fa-envelope fa-lg'
-      url: 'mailto:emgnomez@gmail.com'
+      url: 'mailto:af@aflynn.uk'
     - icon: 'fab fa-github fa-lg'
-      url: 'https://github.com/emgnomez/'
-    - icon: 'fab fa-instagram fa-lg'
-      url: 'https://instagram.com/emgnomez'
+      url: 'https://github.com/Aflynn50/'
     - icon: 'fab fa-linkedin-in fa-lg'
-      url: 'https://linkedin.com/in/em-gomez'
-    - icon: 'fab fa-youtube fa-lg'
-      url: 'https://www.youtube.com/@emilygomez5390'
+      url: 'https://linkedin.com/in/alastair-flynn-6922a8191'
   homepage: "/web" # homepage link, mostly same with menu.main[0]
-  bypassWelcomePage: false # redirects "/" to "homepage" when it's true.
+  bypassWelcomePage: true # redirects "/" to "homepage" when it's true.
 
 markup:
   defaultMarkdownHandler: goldmark
@@ -47,22 +45,16 @@ permalinks:
 
 menu:
   main:
-    - name: web
-      url: /tags/web/
-      weight: 1
-    - name: graphic
-      url: /tags/graphic/
-      weight: 2
-    # - name: case studies
-    #   url: https://www.dropbox.com/scl/fo/35pv60qx4hhoiuteyjqzr/h?dl=0&rlkey=80idtxw55f6jeyvatx70ahouj
-    #   weight: 3
-    # - name: art
-    #   url: /tags/art/
-    #   weight: 4
     - name: about
       url: /about/
-      weight: 4
-    - name: resume
-      url: https://www.dropbox.com/s/jzan87hixniopmq/2023.4.12_Emily_Gomez_Resume.pdf?dl=0
+      weight: 1
+    - name: blog
+      url: /blog/
+      weight: 3
+    - name: new york
+      url: /tags/ny
+      weight: 5
+    - name: cv
+      url: https://www.dropbox.com/
       weight: 5
    

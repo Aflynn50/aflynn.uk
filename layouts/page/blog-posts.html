@@ -1,0 +1,20 @@
+
+{{ $portfolioScratch := newScratch }}
+{{ $portfolioMobileScratch := newScratch }}
+{{ partial "slides/columns" (dict  "portfolioScratch" $portfolioScratch "portfolioMobileScratch" $portfolioMobileScratch "ctx" .) }}
+
+{{ partial "header.html" . }}
+{{ partial "navbar.html" . }}
+<div>
+   <h1>{{ .Title }}</h1>
+        <ul>
+        <!-- Renders the li.html content view for each content/posts/*.md -->
+            {{ range .Site.RegularPages }}
+                    <h4> A PAGE!! </h4>
+                    {{- .Title -}}
+            {{ end }}
+        </ul>
+</div>
+
+{{ partial "slides/slides" $portfolioScratch }}
+{{ partial "footer" . }}
