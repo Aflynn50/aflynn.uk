@@ -9,7 +9,7 @@
 <div class="center">
     <ul>
     {{ range (where .Site.RegularPages "Type" "in" (slice "posts")).GroupByDate "2006" }}
-    <h2 class="center">{{ .Key }}</h2>
+    <h2 class="center">&nbsp;<br>{{ .Key }}</h2>
     <ul>
         <!-- Renders the li.html content view for each content/posts/*.md -->
         {{ range sort .Pages "PublishDate" "asc"}}
