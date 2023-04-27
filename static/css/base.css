@@ -1,10 +1,12 @@
 html {
-    height: 100%;
+    height: 100vh;
+    /*height: 100%;*/
     background-color: var(--cream);
 }
 
 body {
-    min-height: 100%;
+    height: 100vh;
+    /*min-height: 100%;*/
     font-size: large;
     color: var(--dark);
 }
@@ -55,6 +57,7 @@ h6 {
 }
 
 .footer {
+    position: bottom;
     font-size: medium;
     padding: 3rem 1.5rem 2rem;
 }

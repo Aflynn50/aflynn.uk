@@ -3,6 +3,10 @@
     font-size: xx-large;
 }
 
+.is-fullheight-100vh {
+    height:100vh;
+}
+
 /* WELCOME */
 
 .welcome {
