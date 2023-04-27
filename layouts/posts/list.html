@@ -1,0 +1,29 @@
+
+{{ $portfolioScratch := newScratch }}
+{{ $portfolioMobileScratch := newScratch }}
+{{ partial "slides/columns" (dict  "portfolioScratch" $portfolioScratch "portfolioMobileScratch" $portfolioMobileScratch "ctx" .) }}
+
+{{ partial "header.html" . }}
+<div class="container hero is-fullheight">
+{{ partial "navbar.html" . }}
+<div class="center">
+    <ul>
+    {{ range (where .Site.RegularPages "Type" "in" (slice "posts")).GroupByDate "2006" }}
+    <h2 class="center">{{ .Key }}</h2>
+    <ul>
+        <!-- Renders the li.html content view for each content/posts/*.md -->
+        {{ range sort .Pages "PublishDate" "asc"}}
+        <article>
+        <time datetime="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }}"></time>
+        {{ .PublishDate.Format "Jan 2" }} &nbsp;    
+         <a href="{{.Permalink}}">{{.Title}} </a> 
+        </article>
+        {{ end }}
+    </ul>
+    {{ end }}
+    </ul>
+</div>
+
+{{ partial "slides/slides" $portfolioScratch }}
+{{ partial "footer" . }}
+</div>
