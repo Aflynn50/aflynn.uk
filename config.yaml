@@ -37,6 +37,9 @@ markup:
     renderer:
       unsafe: true
 
+theme: 
+  - hugo-embed-pdf-shortcode
+
 taxonomies:
   tag: tags
 
@@ -55,6 +58,6 @@ menu:
       url: /tags/ny
       weight: 5
     - name: cv
-      url: https://www.dropbox.com/
+      url: /cv/
       weight: 5
    
