@@ -7,7 +7,7 @@ params:
   image: '/images/banner.png'
   #copyright: All rights reserved.
   author: Alastair Flynn
-  logo: 'camerame.jpg'
+  logo: '/camerame.jpg'
   dontShowSource: false # please, do not do this :)
   portfolio:
     columns:

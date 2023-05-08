@@ -16,7 +16,7 @@
         <article>
         <time datetime="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }}"></time>
         {{ .PublishDate.Format "Jan 2" }} &nbsp;    
-         <a href="{{.Permalink}}">{{.Title}} </a> 
+         <a href="{{.RelPermalink}}">{{.Title}} </a> 
         </article>
         {{ end }}
     </ul>
