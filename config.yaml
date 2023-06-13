@@ -1,4 +1,4 @@
-baseURL: http://aflynn.uk
+baseURL: https://aflynn.uk
 title: Alastair Flynn
 defaultContentLanguage: 'en'
 googleAnalytics: ''
@@ -58,6 +58,6 @@ menu:
       url: /tags/ny
       weight: 5
     - name: cv
-      url: /cv/
+      url: /AlastairFlynnNewCV.pdf
       weight: 5
    
