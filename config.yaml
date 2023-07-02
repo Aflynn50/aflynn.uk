@@ -54,8 +54,8 @@ menu:
     - name: blog
       url: /blog/
       weight: 3
-    - name: new york
-      url: /tags/ny
+    - name: photos
+      url: /tags/archive
       weight: 5
     - name: cv
       url: /AlastairFlynnNewCV.pdf
