@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="author" content="Emily Gomez">
+	<meta name="description" content="Emily Gomez is a web and graphic designer taking on new projects.">
+	<meta name="keywords" content="Emily Gomez, Emily, Gomez, graphic, graphic design, frontend, ui, ux, web, design">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	
+		<title>Copying and pasting from tmux - Alastair Flynn </title>
+	
+	<meta name="description" content="" />
+
+<title itemprop="name">Copying and pasting from tmux</title>
+<meta property="og:title" content="Copying and pasting from tmux" />
+<meta name="twitter:title" content="Copying and pasting from tmux" />
+<meta itemprop="name" content="Copying and pasting from tmux" />
+<meta property="og:site_name" content="" />
+<meta name="description" content="" />
+<meta itemprop="description" content="" />
+<meta property="og:description" content="" />
+<meta name="twitter:description" content="" />
+<base href="/posts/tmux-copy/">
+<link rel="canonical" href="https://aflynn.uk/posts/tmux-copy/" itemprop="url" /> 
+<meta name="url" content="https://aflynn.uk/posts/tmux-copy/" />
+<meta property="og:url" content="https://aflynn.uk/posts/tmux-copy/" />
+<meta name="twitter:url" content="https://aflynn.uk/posts/tmux-copy/" />
+<meta name="twitter:card" content="summary" />
+
+    <meta name="twitter:creator" content="Alastair Flynn" />
+
+
+
+    
+    
+    
+
+
+    
+
+
+
+    
+    
+
+
+<meta property="og:locale" content="en">
+
+	<link rel="icon" type="image/png" href=/favicon.ico />
+	<link rel="stylesheet" href="/css/main.css">
+	<script src="/js/main.js"></script>
+	<script src="https://kit.fontawesome.com/bf18cd1a66.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<div class="container hero is-fullheight">
+
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-start">
+        
+        
+        <div class="logo">
+            <a href=/about/>
+                <img class="logo" src=https://aflynn.uk/camerame.jpg>
+            </a>
+        </div>
+        
+    </div>
+    <div class="navbar-middle">
+        
+            <a class="a-clean" href=/about/><p class="welcome-title">Alastair Flynn</p></a>
+            
+                <center>
+                    <div class="menu">
+                        
+                        
+                        
+                        
+                        
+                        
+                            
+                            
+                            <a class="" href="/about/" >about</a>
+                             / 
+                        
+                        
+                        
+                        
+                            
+                            
+                            <a class="" href="/blog/" >blog</a>
+                             / 
+                        
+                        
+                        
+                        
+                            
+                            
+                            <a class="" href="/alastairflynnnewcv.pdf" >cv</a>
+                             / 
+                        
+                        
+                        
+                        
+                            
+                            
+                            <a class="" href="/tags/archive" >photos</a>
+                            
+                        
+                    </div>
+                </center>
+            
+        
+    </div>
+    <div class="navbar-end">
+        <div class="socials">
+            
+            
+            
+                <div class="social">
+                    <a href="mailto:af@aflynn.uk" target="_blank">
+                        <i class="far fa-envelope fa-lg"></i>
+                    </a>
+                </div>
+            
+                <div class="social">
+                    <a href="https://github.com/Aflynn50/" target="_blank">
+                        <i class="fab fa-github fa-lg"></i>
+                    </a>
+                </div>
+            
+                <div class="social">
+                    <a href="https://linkedin.com/in/alastair-flynn-6922a8191" target="_blank">
+                        <i class="fab fa-linkedin-in fa-lg"></i>
+                    </a>
+                </div>
+            
+        </div>
+    </div>
+</nav>
+
+<section class="section">
+	
+
+
+
+
+	
+
+<div class="slide"  info="true"  path="/posts/tmux-copy/">
+	<div>
+		<div class="slide-imgs ">
+			<div>
+				<div class="center">
+					
+						
+					
+				</div>
+				<div >
+					
+				</div>
+				<div class="center">
+    <div class="slide-meta columns is-mobile">
+        
+        
+    </div>
+</div>
+
+			</div>
+		</div>
+
+		<div class="center">
+			<div class="slide-info">
+				<div class="content ">
+					
+						
+					
+					<p>Why is coping and pasting from tmux so utterly shit? Like to literally just get the command I typed I need to remember some arcane enchantment involving <code>ctrl+b</code> (referred to helpfully only as the &ldquo;prefix&rdquo; on stack overflow) followed by some sort for closing bracket, or is it opening? - quick google - ok its <code>[</code>. Now we&rsquo;re in &ldquo;copy mode&rdquo; and we can use some esoteric movement keys to attempt to highlight my text. And to actually copy it? I suppose you might try <code>c</code> for copy, or perhaps <code>y</code> for yank, but no, its neither of these, it is of course <code>ctrl+space</code>.</p>
+<p>And that&rsquo;s the simple case. Just imagine if you&rsquo;re trying to copy something out of vim <em>inside</em> tmux. Well, anyway, I&rsquo;m writing this because I just found a few lines to add to your <code>.tmux.conf</code> that will revolutionise your life:</p>
+<p><code>setw -g mouse on</code></p>
+<p><code>set -g set-clipboard on</code></p>
+<p><code>bind-key -T copy-mode-vi y send -X copy-pipe-and-cancel 'xclip -selection clipboard -in'</code></p>
+<p><code>bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel  'xclip -selection clipboard -in'</code></p>
+<p>Copy that in and you&rsquo;ll be able to just highlight it <em>with your mouse</em> and as soon as you let go, its automatically in your clipboard. Hope that it works for you too!</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</section>
+
+
+    <footer class="footer is-flex-align-items-flex-end mt-auto">
+        <div class="content has-text-centered">
+    
+        <p>
+            Made with
+            <a target="_blank" class="source-love" href="https://github.com/boratanrikulu/eternity">Love</a>.
+        </p>
+    
+</div>
+
+    </footer>
+
+</body>
+
+
+
+</html>
+
+</div>
