@@ -1,8 +1,8 @@
 ---
-title: "♪ Three Days Like This ♪"
+title: "Three Days Like This ♪"
 date: 2023-05-23T16:24:01Z
 ---
-#### ♪ Three Days Like This ♪
+#### Three Days Like This ♪
 
 By Alasdair and Alastair
 
