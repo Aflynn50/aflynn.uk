@@ -6,13 +6,12 @@ Why is coping and pasting from tmux so utterly shit? Like to literally just get 
 
 And that's the simple case. Just imagine if you're trying to copy something out of vim *inside* tmux. Well, anyway, I'm writing this because I just found a few lines to add to your `.tmux.conf` that will revolutionise your life:
 
-`setw -g mouse on`
-
-`set -g set-clipboard on`
-
-`bind-key -T copy-mode-vi y send -X copy-pipe-and-cancel 'xclip -selection clipboard -in'`
-
-`bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel  'xclip -selection clipboard -in'`
+```
+setw -g mouse on
+set -g set-clipboard on
+bind-key -T copy-mode-vi y send -X copy-pipe-and-cancel 'xclip -selection clipboard -in'
+bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel  'xclip -selection clipboard -in'
+```
 
 Copy that in and you'll be able to just highlight it *with your mouse* and as soon as you let go, its automatically in your clipboard. Hope that it works for you too!
 
