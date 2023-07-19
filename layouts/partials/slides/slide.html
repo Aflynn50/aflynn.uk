@@ -40,12 +40,7 @@
 
 		<div class="center">
 			<div class="slide-info">
-				<div class="content {{ if not $.disableFullheight }} margin-bottom-50 {{ end }}">
-					{{ if not .ctx.Params.hideExif }}
-						{{ with (index $imgs 0).Exif }}
-							{{ partial "helpers/exif.html" . }}
-						{{ end }}
-					{{ end }}
+				<div class="content-af {{ if not $.disableFullheight }} margin-bottom-50 {{ end }}">
 					{{ .ctx.Content }}
 				</div>
 			</div>
