@@ -18,7 +18,7 @@
                     {{ range sort .Pages "PublishDate" "asc"}}
                     <article>
                         <time datetime="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" }}"></time>
-                        {{ .PublishDate.Format "Jan 2" }} &nbsp;    
+                        {{ .PublishDate.Format "Jan 02" }} &nbsp;    
                     </article>
                     {{ end }}
                 </ul>
