@@ -38,7 +38,7 @@
         {{ end }}
     </div>
     <div class="navbar-end">
-        <div class="socials">
+        <div id="socials" style="display: none" class="socials">
             {{ $socials := .Site.Params.socials }}
             {{ if and .IsHome $socials }}
                 {{ $socials = where $socials "landing" true }}
@@ -48,7 +48,7 @@
                     <a href="{{ $el.url }}" target="_blank">
                         <i class="{{ $el.icon }}"></i>
                     </a>
-                    <!--
+                    <!-- Code to display an svg instead of font awesome
                     <a href="{{ $el.url }}" target="_blank" style="background-image: url('{{ $el.image | absURL }}')">
                         <img src="{{ $el.image | absURL }}">
                     </a>
@@ -57,4 +57,7 @@
             {{ end }}
         </div>
     </div>
+    <script>
+        document.getElementById("socials").style.display = "flex";
+    </script>
 </nav>
