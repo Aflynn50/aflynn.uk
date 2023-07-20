@@ -36,6 +36,8 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+  highlight:
+    style: native
 
 theme: 
   - hugo-embed-pdf-shortcode

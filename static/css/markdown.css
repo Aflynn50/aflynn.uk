@@ -46,7 +46,6 @@
 .content pre.highlight,
 .content .highlight>pre,
 .content td.code pre {
-    background-color: #242c24;
     background-size: 3em 3em;
     background-position: 0px 10px;
     border: 1px solid var(--main-light);
@@ -67,13 +66,8 @@
 
 .content table tr {
     border-top: 1px solid #cccccc;
-    background-color: #ffffff;
     margin: 0;
     padding: 0;
-}
-
-.content table tr:nth-child(2n) {
-    background-color: #f8f8f8;
 }
 
 .content table tr th {
