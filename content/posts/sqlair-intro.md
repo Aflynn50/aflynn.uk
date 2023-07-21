@@ -64,10 +64,10 @@ To build a query a statement first needs to be prepared. The `sqlair.Prepare` fu
 
 ```go
 stmt, err := sqlair.Prepare(`
-		SELECT &Employee.*
-		FROM person
-		WHERE team = $Manager.team_id`,
-		Employee{}, Manager{},
+    SELECT &Employee.*
+    FROM person
+    WHERE team = $Manager.team_id`,
+    Employee{}, Manager{},
 )
 ```
 
@@ -105,9 +105,9 @@ Here, it will use the reflection information of the sample `Employee` struct pas
 
 ```go
 stmt, err := sqlair.Prepare(`
-		SELECT &Employee.*
-		FROM employee`,
-		Employee{},
+    SELECT &Employee.*
+    FROM employee`,
+    Employee{},
 )
 ```
 
@@ -227,7 +227,7 @@ err := iter.Close()
 stmt := sqlair.MustPrepare(`
 	INSERT INTO person (name, id, team_id)
 	VALUES ($Employee.name, $Employee.id, $Employee.team_id);`,
-		Employee{},
+    Employee{},
 )
 
 var e = Employee{Name: "Alastair", ID: 1, TeamID: 1} 
