@@ -6,7 +6,7 @@ Why is coping and pasting from tmux so utterly shit? Like to literally just get 
 
 And that's the simple case. Just imagine if you're trying to copy something out of vim *inside* tmux. Well, anyway, I'm writing this because I just found a few lines to add to your `.tmux.conf` that will revolutionise your life:
 
-```shell
+```
 setw -g mouse on
 set -g set-clipboard on
 bind-key -T copy-mode-vi y send -X copy-pipe-and-cancel 'xclip -selection clipboard -in'
