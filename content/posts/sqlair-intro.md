@@ -115,9 +115,9 @@ There are other more complex forms of output expressions as well. You can specif
 
 ```go
 stmt, err := sqlair.Prepare(`
-		SELECT e.* AS &Employee.*, (t.team_name, t.id) AS &Team.*
-		FROM employees AS e, teams AS t
-		WHERE t.room_id = $Location.room_id AND t.id = e.team_id`,
+    SELECT e.* AS &Employee.*, (t.team_name, t.id) AS &Team.*
+    FROM employees AS e, teams AS t
+    WHERE t.room_id = $Location.room_id AND t.id = e.team_id`,
 	Location{}, Employee{},
 )
 ```
