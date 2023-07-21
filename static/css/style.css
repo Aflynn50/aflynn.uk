@@ -333,8 +333,8 @@ section .column img {
 .slide-info {
     margin-bottom: 30px;
     margin-left: 20px;
-    font-size: medium;
-    width: 800px;
+    font-size: 0.95em;
+    width: 700px;
 }
 
 .slide-meta {

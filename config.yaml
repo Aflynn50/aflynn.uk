@@ -40,7 +40,7 @@ markup:
     renderer:
       unsafe: true
   highlight:
-    style: native
+    style: onedark
 
 theme: 
   - hugo-embed-pdf-shortcode
