@@ -2,15 +2,7 @@
 title: "SQLair Introduction"
 date: 2023-07-19T11:48:47+01:00
 ---
-# SQLair
-
-So you want to access your database from Go. Well, there are a few options. The natural place to start is with Go's standard database library `database/sql`. Developed by the core Go team this library serves as an excellent starting point for building your queries. You can construct and execute your queries with relative ease, but then problems start to appear when you try and read the results from the database back into your program. Each row of the results has to be manually looped through and explicitly scanned into each field of each struct in which you are placing the result.
-
-The way around all the hard manual labour? An [ORM](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping)! Of course an ORM will solve your problem, but it does come with its own drawbacks. When it comes to executing complicated queries it can be more of a hindrance than a help and navigating an ORMs API can be almost like learning a new language.
-
-If only it was possible to write your queries in SQL, but still get all the benefits of convenient type mapping...
-
-### An introduction to SQLair
+# An Introduction to SQLair
 
 SQLair is a package for Go that provides type mapping between structs/maps and SQL databases by allowing references to the Go types within the SQL query itself.
 
@@ -25,23 +17,25 @@ WHERE team_id = ?
 ```
 
 With SQLair you could write:
+
 ```plaintext
 SELECT &Employee.*
 FROM employee
 WHERE team_id = $Location.team_id
 ```
 
-SQLair adds special *expressions* to your SQL statements. These expressions allow you to reference the source/destination Go types directly in the SQL query, meaning that you can work the purpose of a query in the context of your program from a single glance.
+SQLair adds special *expressions* to your SQL statements. These expressions allow you to use Go types directly in the query to reference the source of the parameters and the destination of the results. The purpose of a query in the context of your program can be worked out from a single glance.
 
-SQLair uses the [`database/sql`](https://pkg.go.dev/database/sql) package to interact with the database underneath. It provides a convenience layer on top.
+SQLair uses the [`database/sql`](https://pkg.go.dev/database/sql) package to interact with the raw database and provides a convenience layer on top. This convinience layer provides a very different API to `database/sql`.
 
-The full API docs can be found at [pkg.go.dev](https://pkg.go.dev/github.com/canonical/sqlair).
+The full API docs can be found at [pkg.go.dev/github.com/canonical/sqlair](https://pkg.go.dev/github.com/canonical/sqlair).
 
-In this introduction we will use the example of a company database containing employees and their teams. A full code example is given at the end of this post.
+In this introduction we will use the example of a company's database containing employees and the teams they belong to. A full example code listing is given at the end of this post.
 
+# Getting Started
 ## Tagging structs
 
-The first step is to tag the fields your structs with column names. The `db` tag is used to indicate to SQLair which database column a struct field corresponds to.
+To use a struct type with SQLair the first step is to tag the fields your structs with column names. The `db` tag is used to indicate which database column a struct field corresponds to.
 
 For example:
 
@@ -60,37 +54,35 @@ It is important to note that SQLair *needs* the struct fields to be public in to
 ## Writing the SQL
 ### SQLair Prepare
 
-To build a query a statement first needs to be prepared. The `sqlair.Prepare` function takes a query with SQLair expressions in it and returns a `sqlair.Statement`. These statements are not tied to any database and can be created at the start of the program for use later on.
-
-```go
-stmt, err := sqlair.Prepare(`
-    SELECT &Employee.*
-    FROM person
-    WHERE team = $Manager.team_id`,
-    Employee{}, Manager{},
-)
-```
+A SQLair statement is built by preparing a query string. The `sqlair.Prepare` function turns a query with SQLair expressions into a `sqlair.Statement`. These statements are not tied to any database and can be created at the start of the program for use later on.
 
 *Note:* `sqlair.Prepare` does not prepare the statement on the database. This is done automatically behind the scenes when the query is built on a `DB`.
 
-The `Prepare` function needs a sample of every struct mentioned in the query. It uses the struct's reflection information to generate the columns and check that the expressions make sense. These structs are only used for type information, their content is disregarded.
+```go
+stmt, err := sqlair.Prepare(`
+		SELECT &Employee.*
+		FROM person
+		WHERE team = $Manager.team_id`,
+		Employee{}, Manager{},
+)
+```
+
+The `Prepare` function needs a sample of every struct mentioned in the query. It uses the struct's reflection information to generate the columns and check that the expressions make sense. These type samples are only used for reflection information, their content is disregarded.
 
 There is also a function `sqlair.MustPrepare` that does not return an error and panics if it encounters one.
 
-*Note:* To use the same struct twice in a query one of the types needs to be renamed e.g. `type Manager Person`
-
 ### Input and output expressions
 
-In the SQLair expressions, the characters `$` and `&` are used to specify input and outputs respectively. The dollar `$` specifies a struct to fetch and argument from and the ampersand `&` specifies a struct to read query results into.
+In the SQLair expressions, the characters `$` and `&` are used to specify input and outputs respectively. The dollar `$` specifies a struct to fetch an argument from and the ampersand `&` specifies a struct to read query results into.
 
 #### Input expressions
 
-SQLair Input expressions replace parameter placeholders (`?`) and named parameters (`@Name`) in the SQL statement. An input expression is made up of the struct type name and a column name taken from the `db` tag of a struct field. For example:
+SQLair Input expressions replace the question mark placeholders in the SQL statement. An input expression is made up of the struct type name and a column name taken from the `db` tag of a struct field. For example:
 
 ```plaintext
 UPDATE employee 
 SET name = $Empolyee.name
-WHERE id = $Employee.id"
+WHERE id = $Employee.id
 ```
 
 The expression `$Employee.name` tells SQLair that when we create the query we will give it an `Employee` struct and that the `Name` field is passed as a query argument.
@@ -99,30 +91,32 @@ The expression `$Employee.name` tells SQLair that when we create the query we wi
 
 #### Output expressions
 
-Output expressions replace the columns in a SQL query. Because the struct is already  tagged, you can use an asterisk (`*`) to tell SQLair that you want to fetch and fill all the columns for that struct.
+Output expressions replace the columns in a SQL query string. Because the struct has been tagged, you can use an asterisk (`*`) to tell SQLair that you want to fetch and fill *all* of the tagged the columns in that struct. If not every columns is needed then there are other forms of output expression that can be used.
 
-Here, it will use the reflection information of the sample `Employee` struct passed to `Prepare` to determine the columns to fetch.
+In the code below, SQLair will use the reflection information of the sample `Employee` struct and substitute in all the columns mentioned in its `db` tags:
 
 ```go
 stmt, err := sqlair.Prepare(`
-    SELECT &Employee.*
-    FROM employee`,
-    Employee{},
+		SELECT &Employee.*
+		FROM employee`,
+		Employee{},
 )
 ```
 
-There are other more complex forms of output expressions as well. You can specify exactly which columns you want, and which table to get them from. 
+There are other forms of output expressions as well. You can specify exactly which columns you want, and which table to get them from.
+
+In the statement below there are two output expressions. The first instructs SQLair to fetch and fill all tagged fields in `Employee`, prefixed with the table `e`, and the second tells SQLair that the columns `t.team_name` and `t.id` should be substituted into the query and scanned into the `Team` struct when the results are fetched:
 
 ```go
 stmt, err := sqlair.Prepare(`
-    SELECT e.* AS &Employee.*, (t.team_name, t.id) AS &Team.*
-    FROM employees AS e, teams AS t
-    WHERE t.room_id = $Location.room_id AND t.id = e.team_id`,
+		SELECT e.* AS &Employee.*, (t.team_name, t.id) AS (&Team.*)
+		FROM employees AS e, teams AS t
+		WHERE t.room_id = $Location.room_id AND t.id = e.team_id`,
 	Location{}, Employee{},
 )
 ```
 
-Or, if the columns on a particular table don't match the tags on the structs, you can rename them:
+If the columns on a particular table don't match the tags on the structs, you can also rename the columns. This query tells SQLair to put the columns `manager_name` and `manager_team` in the fields of `Employee` tagged with `name` and `team` once the results are fetched:
 
 ```go
 stmt, err := sqlair.Prepare(`
@@ -132,13 +126,13 @@ stmt, err := sqlair.Prepare(`
 )
 ```
 
-Again, it is important to note that the we always use the column names found in the `db` tags of the struct to talk about a field in an output expression.
+As with input expressions, it is important to note that the we always use the column names found in the `db` tags of the struct in the output expression rather than the field name.
 
 ## Wrapping the database
 
 SQLair does not handle configuring and opening a connection to the database. For this, you need to use `database/sql`. Once you have created a database object of type `*sql.DB` this can be wrapped with `sqlair.NewDB`.
 
-If you want to just try out SQLair the Go `sqlite3` driver makes it very easy to set up an in memory database:
+If you want to quickly try out SQLair the Go `sqlite3` driver makes it very easy to set up an in memory database:
 
 ```go
 import (
@@ -157,88 +151,82 @@ db := sqlair.NewDB(sqldb)
 
 ## Querying the database
 
-Now you have your database its time to write a query. Assuming that `stmt` had one argument
+Now you have your database its time to run a query. This is done with `DB.Query`. The arguments to `DB.Query` are:
+- The context  (`context.Context`).  This can be `nil` if no context is needed for the query.
+- The statement (`sqlair.Statement`) to be run on the database.
+- Any structs mentioned in input expressions that contain query arguments (`DB.Query` is variadic).
+
+The `Query` object returned by `DB.Query` does not actually execute the query on the database. That is done when we get the results. `Query.Get` fetches a single row from the database and populates the output structs of the query.
+
+In the example below, the `Employee` struct, `res`, will be filled with the first employee in the managers team:
+
 
 ```go
-stmt := sqlair.MustPrepare(`
-	SELECT &Employee.*
-	FROM employees
-	WHERE team_id = $Manager.team_id
-`)
+//  stmt:
+//	    SELECT &Employee.*
+//	    FROM employees
+//	    WHERE team_id = $Manager.team_id
 
-pedro := Manager{Name: "Pedro", ID: 4, TeamID: 2}
-q := db.Query(ctx, stmt, pedro)
+arg := Manager{Name: "Pedro", TeamID: 1}
+res := Employee{}
+
+err := db.Query(ctx, stmt, arg).Get(&res)
 ```
-
-The `DB.Query` method takes a `context.Context` as its first argument so the query can be stopped if taking too long. The context (`ctx`) can be `nil` if no context is needed for the query.
-
-It then takes the `*sqlair.Statement` followed by any query arguments. These arguments are all the structs mentioned in SQLair input expressions e.g. the `Person` struct corresponding to the expression `$Person.name` in the query.
-
-A query object is designed to be used once then discarded.
 
 ### Getting the results
 
-Running `db.Query` does not actually execute the query on the database. That happens when you do `Run`, `Get`, `GetAll` or `Iter` on the `Query`. 
+The `Get` method is one of several options for fetching results from the database. The others are `Run`, `GetAll` and `Iter`. 
 
-*Note:* If the query has no output expressions (i.e. nothing of the form `&MyStruct...`) then no results will be fetched from the database. This can be confusing for new users because SQL statements such as `SELECT name FROM person` will not work if executed with SQLair; an output expression is needed: `SELECT &Person.name FROM person`.
-
-`Get` fetches a single row from the database and reads the result into its arguments.
+`GetAll` fetches all the result rows from the database. It takes a slice of structs for each argument. This query (the same query as the previous example) will fetch all employees in team 1 and append them to `res`:
 
 ```go
-var e = Employee{}
-err := db.Query(ctx, stmt, pedro).Get(&e)
-// e == Employee{Name: "Alastair", ID: 1, TeamID: 1} 
-```
-
-
-`GetAll` fetches all the result rows from the database. It takes a slice of structs for each argument.
-
-```go
-var es = []Employee{}
-err := db.Query(ctx, stmt, pedro).GetAll(&es)
-// es == []Employee{
-//         Employee{ID: 1, TeamID: 1, Name: "Alastair"},
-//         Employee{ID: 2, TeamID: 1, Name: "Ed"},
-//         ...
+arg := Manager{Name: "Pedro", TeamID: 1}
+res := []Employee{}
+err := db.Query(ctx, stmt, arg).GetAll(&es)
+// res == []Employee{
+//          Employee{ID: 1, TeamID: 1, Name: "Alastair"},
+//          Employee{ID: 2, TeamID: 1, Name: "Ed"},
+//          ...
 // }
 ```
 
 
-`Iter` returns an `Iterator` that fetches one row at a time. `Iter.Next` checks returns true if there is a next row. And once the iteration has finished `Iter.Close` must be called. This will also return any errors that happened during iteration.
+`Iter` returns an `Iterator` that fetches one row at a time. `Iter.Next` returns true if there is a next row, the row can be read with `iter.Get`, and once the iteration has finished `Iter.Close` must be called. `Iter.Close` will also return any errors that happened during iteration. For example:
 
 ```go
-iter := db.Query(ctx, stmt, pedro).Iter()
+arg := Manager{Name: "Pedro", TeamID: 1}
+iter := db.Query(ctx, stmt, arg).Iter()
 for iter.Next() {
-	var e = Employee{}
+	res := Employee{}
 	err := iter.Get(&e)
-	// e == Employee{Name: "Alastair", ID: 1, TeamID: 1} 
+	// res == Employee{Name: "Alastair", ID: 1, TeamID: 1} 
 	if err != nil {
 		// Handle error.
 	}
-	// Do something with e.
+	// Do something with res.
 }
 err := iter.Close()
 ```
 
 
-`Run` runs a query on the DB. It is the same as `Get` with no arguments.
+`Run` runs a query on the DB. It is the same as `Get` with no arguments. This query will insert the employee named "Alastair" into the database:
 
 ```go
-stmt := sqlair.MustPrepare(`
-	INSERT INTO person (name, id, team_id)
-	VALUES ($Employee.name, $Employee.id, $Employee.team_id);`,
-    Employee{},
-)
+//  stmt:
+//	    INSERT INTO person (name, id, team_id)
+//	    VALUES ($Employee.name, $Employee.id, $Employee.team_id);`,
 
-var e = Employee{Name: "Alastair", ID: 1, TeamID: 1} 
-err := db.Query(ctx, stmt, e).Run()
+var arg = Employee{Name: "Alastair", ID: 1, TeamID: 1} 
+err := db.Query(ctx, stmt, arg).Run()
 ```
+
+*Note:* If the query has no output expressions then it is executed on the database meaning that no rows are returned. This can be confusing for new users because SQL statements such as `SELECT name FROM person` will not work if executed with SQLair; an output expression is needed: `SELECT &Person.name FROM person`.
 
 ## Maps
 
-SQLair supports maps as well as structs. So far in this introduction all examples have used structs to keep it simple, but in nearly all cases maps can be used as well.
+SQLair supports maps as well as structs. So far in this introduction, all examples have used structs to keep it simple, but in nearly all cases maps can be used as well.
 
-For example:
+This query will fetch the columns `name` and `team_id` from the database and put the results into the map `m` at key `"name"` and `"team_id"`:
 
 ```go
 stmt := sqlair.MustPrepare(`
@@ -297,7 +285,7 @@ There are new features being added to SQLair all the time, I intend to write mor
 
 Hopefully this has been of some use, enjoy using the library!
 
-## A complete example
+## A Complete Example
 
 ```go
 func Example() {
@@ -419,7 +407,7 @@ func Example() {
 	// Example 2
 	// Find out who is in location l1 and what team they work for.
 	selectPeopleInRoom := sqlair.MustPrepare(`
-		SELECT e.* AS &Employee.*, (t.team_name, t.id) AS &Team.*
+		SELECT e.* AS &Employee.*, (t.team_name, t.id) AS (&Team.*)
 		FROM employees AS e, teams AS t
 		WHERE t.room_id = $Location.room_id AND t.id = e.team_id`,
 		Employee{}, Team{}, Location{},
@@ -493,4 +481,3 @@ func Example() {
 	//Gustavo from team Leadership is in The Penthouse.
 }
 ```
-
