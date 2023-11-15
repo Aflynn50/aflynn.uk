@@ -11,6 +11,8 @@
     border-bottom: 2px solid #e7e7e7;
 }
 
+.content ul code,
+.content ul strong code,
 .content p code,
 .content strong code {
     color: var(--dark-light);
