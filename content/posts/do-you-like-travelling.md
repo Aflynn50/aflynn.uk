@@ -14,6 +14,11 @@ Don't get me wrong, I've taken 14 flights so far this year and each one of them 
 
 If, this year, everything I have travelled for had happened in Edinburgh, where I live, it would have been incalculably better. I have dipped my toe into new cultures, but not in any kind of meaningful way. I know that Latvians make amazing garlic bread (Ķiploku grauzdiņi), but, to be honest, that was probably the deepest thing I learned about the place while I was there.
 
+
+\
+![Ķiploku grauzdiņi](/latvian-garlic-bread.jpg)
+
+\
 New experiences that grow you as a person mean you can go back home and live a richer and more fulfilling life. The problem is, if you're travelling all the time, the concept of home starts to become weaker. I ended up missing my nephews birthday earlier this month because I was in Riga. The more I miss at home, the easier it is to detach myself from the things I miss. There is nothing I want less than to become detached. I would really like to live my life here.
 
 It is not really so bad. I have great friends at work, we are spread out all over the world but have a great time together every six months. I have my girlfriend, whom I could not live my life without who is located five timezones away. Now that I have these relationships I'll be damned if I'm going to let them go. I need to travel to live my life as I know it but that needs to be balanced with what I have here at home.
