@@ -21,6 +21,9 @@
 	<link rel="stylesheet" href="/css/main.css">
 	<script src="/js/main.js"></script>
     <script src="https://kit.fontawesome.com/bf18cd1a66.js" crossorigin="anonymous"></script>
+    {{ with .OutputFormats.Get "rss" -}}
+    {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+    {{ end }}
 </head>
 
 <body>
