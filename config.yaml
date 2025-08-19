@@ -66,6 +66,6 @@ menu:
     - name: photos
       url: /tags/archive
       weight: 5
-    - name: resume
+    - name: cv
       url: /alastairflynn.pdf
       weight: 5

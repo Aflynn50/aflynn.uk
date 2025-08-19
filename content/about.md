@@ -1,6 +1,6 @@
 ---
 images:
-- /images/me.png
+- /images/AlastairFlynnSquare.jpeg
 title: about
 url: about
 hideTitle: true
