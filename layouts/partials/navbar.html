@@ -46,13 +46,8 @@
             {{ range $el := $socials }}
                 <div class="social">
                     <a href="{{ $el.url }}" target="_blank">
-                        <i class="{{ $el.icon }}"></i>
+                        <img src="{{ $el.image | absURL }}" alt="">
                     </a>
-                    <!-- Code to display an svg instead of font awesome
-                    <a href="{{ $el.url }}" target="_blank" style="background-image: url('{{ $el.image | absURL }}')">
-                        <img src="{{ $el.image | absURL }}">
-                    </a>
-                    -->
                 </div>
             {{ end }}
         </div>
