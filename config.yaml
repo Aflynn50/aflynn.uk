@@ -18,9 +18,11 @@ params:
         graphic: 3
         web: 2
         ny: 1
+        books: 4
         default: 3
       mobile:
         default: 2
+        books: 2
         # archive: 3
   socials:
     - icon: 'far fa-envelope fa-lg'
@@ -65,10 +67,13 @@ menu:
       weight: 1
     - name: blog
       url: /blog/
-      weight: 3
+      weight: 2
     - name: photos
       url: /tags/archive
-      weight: 5
+      weight: 3
+    - name: books
+      url: /books/
+      weight: 4
     - name: cv
       url: /alastairflynn.pdf
       weight: 5

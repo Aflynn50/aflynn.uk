@@ -1,0 +1,231 @@
+/* Books Section Styles */
+
+.book-box {
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+/* Book cover */
+.book-cover {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    background-color: var(--dark-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.book-cover:hover {
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
+
+/* Image cover */
+.book-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.book-cover.has-image:hover .book-cover-img {
+    opacity: 0.15;
+}
+
+/* Text-based fallback cover */
+.book-cover-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    gap: 10px;
+    transition: opacity 0.3s ease;
+}
+
+.book-cover-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--cream);
+    line-height: 1.3;
+}
+
+.book-cover-author {
+    font-size: 0.9em;
+    font-style: italic;
+    color: var(--grey);
+}
+
+.book-cover-year {
+    font-size: 0.8em;
+    color: var(--grey);
+    margin-top: 4px;
+}
+
+.book-cover:hover .book-cover-text {
+    opacity: 0;
+}
+
+/* Hover preview overlay */
+.book-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.9);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    pointer-events: none;
+}
+
+.book-cover:hover .book-preview {
+    opacity: 1;
+}
+
+.book-preview-content {
+    color: white;
+    text-align: center;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.book-preview-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: white !important;
+}
+
+.book-preview-author {
+    font-size: 0.9em;
+    font-style: italic;
+    margin-bottom: 12px;
+    color: #ddd;
+}
+
+.book-preview-text {
+    font-size: 0.85em;
+    line-height: 1.5;
+    color: #eee;
+    text-align: left;
+}
+
+/* Book slide overlay styles */
+
+.book-slide {
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: auto;
+    padding: 60px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.book-slide > .container {
+    width: 100%;
+}
+
+.book-slide-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--grey);
+}
+
+.book-slide-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--main-light);
+    margin-bottom: 10px;
+}
+
+.book-slide-author {
+    font-size: 1.3em;
+    font-style: italic;
+    color: var(--grey);
+}
+
+.book-slide-date {
+    font-size: 0.95em;
+    color: var(--grey);
+    margin-top: 8px;
+}
+
+.book-slide-body {
+    font-size: 1.05em;
+    line-height: 1.8;
+}
+
+.book-slide-body .content {
+    margin-bottom: 50px;
+}
+
+/* Mobile: tap once to show preview, tap again to open slider */
+@media (hover: none) and (pointer: coarse) {
+    .book-box {
+        cursor: pointer;
+    }
+
+    .book-box.tapped .book-preview {
+        opacity: 1;
+    }
+
+    .book-box.tapped .book-cover-text {
+        opacity: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .book-cover-title {
+        font-size: 1em;
+    }
+
+    .book-cover-author {
+        font-size: 0.8em;
+    }
+
+    .book-preview-title {
+        font-size: 1em;
+    }
+
+    .book-preview-author {
+        font-size: 0.8em;
+    }
+
+    .book-preview-text {
+        font-size: 0.75em;
+    }
+
+    .book-slide {
+        padding: 50px 15px;
+    }
+
+    .book-slide-title {
+        font-size: 1.8em;
+    }
+
+    .book-slide-author {
+        font-size: 1.1em;
+    }
+
+    .book-slide-body {
+        font-size: 0.95em;
+    }
+}

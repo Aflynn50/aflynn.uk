@@ -1,0 +1,20 @@
+{{ $booksScratch := newScratch }}
+{{ $booksMobileScratch := newScratch }}
+{{ partial "books/columns" (dict  "booksScratch" $booksScratch "booksMobileScratch" $booksMobileScratch "ctx" .) }}
+
+{{ partial "header.html" . }}
+{{ partial "navbar.html" . }}
+
+<section id="desktop" class="section work">
+	{{ partial "helpers/hidden-menu.html" . }}
+	{{ partial "books/grid" (dict "scratch" $booksScratch "type" "desktop" "ctx" .) }}
+</section>
+
+<section id="mobile" class="section work">
+	{{ partial "helpers/hidden-menu.html" . }}
+	{{ partial "books/grid" (dict "scratch" $booksMobileScratch "type" "mobile" "ctx" .) }}
+</section>
+
+{{ partial "books/slides" $booksScratch }}
+<script src="/js/books.js"></script>
+{{ partial "footer" . }}

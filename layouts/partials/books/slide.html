@@ -1,0 +1,18 @@
+<div class="slide book-slide" info="true" path="{{ $.ctx.Page.RelPermalink }}">
+	<div class="container">
+		<section class="section">
+			<div class="book-slide-header">
+				<h1 class="book-slide-title">{{ .ctx.File.BaseFileName }}</h1>
+				<p class="book-slide-author">by {{ .ctx.Params.author }}{{ with (index .ctx.Params "pub-year") }} ({{ . }}){{ end }}</p>
+				{{ with (index .ctx.Params "date-finished") }}
+				<p class="book-slide-date">Read: {{ time.Format "January 2006" (time.AsTime .) }}</p>
+				{{ end }}
+			</div>
+			<div class="book-slide-body">
+				<div class="content">
+					{{ .ctx.Content }}
+				</div>
+			</div>
+		</section>
+	</div>
+</div>

@@ -1,0 +1,12 @@
+---
+author: Haruki Murakami
+pub-year: "2007"
+date-finished: 2026-01-17
+---
+This was the first book by Murakami that I've read, and I have to say, I was surprised by how readable it was. I think because he's won a Nobel prize I had in my head that his writing was going to be impenetrable, or at least very high-brow. But no, he writes like a normal person, with a fairly normal experience of the world. Well, sort of.
+
+Its very clear from reading this book that Murakami is a goal driven person. He seems to love the cycle of putting in a ton of effort, and pain, and then achieving some massive result. Such as finishing a marathon, or writing a book. He holds himself to his own standards, which arguably is better than holding himself to other peoples, except that his own are very very high. He mentions a few times how he goes to see a massage therapist for his tight muscles and they are in shock how he could be in such a state without being in immense amounts of pain. The fact is, he is in immense amounts of pain, he just really wants to do well at the next race so keep pushing and pushing.
+
+I initially picked up this book because I'm getting back into running, and I thought it would be a good companion along the way. I thought he might be able to give me new insights that would make me appreciate it more. And to some extent he did,  I relate to a lot of what Murakami has to say, but not everything. I'm somebody who feels the freedom, the release, the escape, of running. I love that I just get to be in my own head, taking it all in and letting my mind sit in its happy medium whilst the world floats by. I love that I can't really do anything else except run and look about me when I'm out there.
+
+But on the other hand, I don't see the challenge running can offer in the same way that he does. I like a challenge, and I like to push myself, but for me that is one of the lesser parts of life. Its not an all consuming raison d'etre for me, like it is for him. I feel like I know people who are like that in my life, and I've never fully understood them. In the end, as well as giving me a deeper understanding of running, this book has brought me slight closer to those people. And for that I am very thankful.

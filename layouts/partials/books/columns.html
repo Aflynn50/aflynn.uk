@@ -1,0 +1,67 @@
+<!-- Gather all book pages sorted by date-finished descending -->
+{{ $posts := slice }}
+{{ $bookSection := .ctx.Site.GetPage "section" "books" }}
+{{ if $bookSection }}
+	{{ $posts = $bookSection.RegularPages.ByParam "date-finished" }}
+	{{ $posts = $posts.Reverse }}
+{{ end }}
+
+<!-- desktop columns -->
+{{ $columnsCount := 0 }}
+{{ if .ctx.Site.Params.portfolio.columns.desktop }}
+	{{ $columnsCount = index .ctx.Site.Params.portfolio.columns.desktop "books" }}
+{{ end }}
+{{ if not $columnsCount }}
+	{{ $columnsCount = 4 }}
+{{ end }}
+
+{{ $postsCount := len $posts }}
+{{ if lt $postsCount $columnsCount }}
+	{{ $columnsCount = $postsCount }}
+{{ end }}
+{{ $.booksScratch.Set "columnsCount" $columnsCount }}
+{{ $.booksScratch.Set "posts" $posts }}
+
+{{ $loopCount := 1 }}
+{{ $loopFlag := 0 }}
+{{ range $i, $post := $posts }}
+	{{ if gt $loopFlag (sub $columnsCount 1) }}
+		{{ $loopFlag = 0 }}
+	{{ end }}
+	{{ range $index, $num := (seq $columnsCount) }}
+		{{ if eq (sub $loopFlag $index) 0 }}
+			{{ $column := $.booksScratch.Get (printf "%d" $index) }}
+			{{ $column = $column | append (dict "post" $post "loopCount" $loopCount) }}
+			{{ $.booksScratch.Set (printf "%d" $index) $column }}
+		{{ end }}
+	{{ end }}
+	{{ $loopCount = (add $loopCount 1) }}
+	{{ $loopFlag = (add $loopFlag 1) }}
+{{ end }}
+
+<!-- mobile columns -->
+{{ $mobileColumnsCount := 0 }}
+{{ if .ctx.Site.Params.portfolio.columns.mobile }}
+	{{ $mobileColumnsCount = index .ctx.Site.Params.portfolio.columns.mobile "books" }}
+{{ end }}
+{{ if not $mobileColumnsCount }}
+	{{ $mobileColumnsCount = 2 }}
+{{ end }}
+{{ $.booksMobileScratch.Set "columnsCount" $mobileColumnsCount }}
+{{ $.booksMobileScratch.Set "posts" $posts }}
+{{ $loopCount := 1 }}
+{{ $loopFlag := 0 }}
+{{ range $i, $post := $posts }}
+	{{ if gt $loopFlag (sub $mobileColumnsCount 1) }}
+		{{ $loopFlag = 0 }}
+	{{ end }}
+	{{ range $index, $num := (seq $mobileColumnsCount) }}
+		{{ if eq (sub $loopFlag $index) 0 }}
+			{{ $column := $.booksMobileScratch.Get (printf "%d" $index) }}
+			{{ $column = $column | append (dict "post" $post "loopCount" $loopCount) }}
+			{{ $.booksMobileScratch.Set (printf "%d" $index) $column }}
+		{{ end }}
+	{{ end }}
+	{{ $loopCount = (add $loopCount 1) }}
+	{{ $loopFlag = (add $loopFlag 1) }}
+{{ end }}

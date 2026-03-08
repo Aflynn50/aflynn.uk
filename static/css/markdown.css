@@ -34,10 +34,13 @@
     border-left: 3px solid;
     border-color: var(--main);
     padding-left: 20px;
+    background-color: var(--code-background);
+    padding: 1rem 1rem 1rem 20px;
+    border-radius: 4px;
 }
 
 .content blockquote p {
-    color: var(--white);
+    color: var(--dark);
 }
 
 .content pre code {

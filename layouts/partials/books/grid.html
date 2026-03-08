@@ -1,0 +1,57 @@
+{{ with .ctx.Content }}
+<div class="center">
+    <div class="slide-info">
+        <div class="content">
+            {{ . }}
+        </div>
+    </div>
+</div>
+{{ end }}
+
+<div class="columns work-width {{ if eq .type "mobile" }} is-mobile is-multiline {{ end }}">
+    {{ if eq (len ($.scratch.Get "posts")) 0 }}
+        <div class="column is-half is-offset-one-quarter">
+            <div class="notification is-info is-light">
+                There are no books yet.
+            </div>
+        </div>
+    {{ else }}
+    {{ range $index, $num := (seq ($.scratch.Get "columnsCount")) }}
+        <div class="column">
+            {{ $column := ($.scratch.Get (printf "%d" $index)) }}
+            {{ range $row := $column }}
+                {{ $post := index $row "post" }}
+                {{ $preview := $post.Plain | truncate 200 }}
+                {{ $baseName := $post.File.BaseFileName }}
+                {{ $safeName := $baseName | lower | replaceRE "[^a-z0-9]+" "-" | strings.TrimRight "-" | strings.TrimLeft "-" }}
+                {{ $coverPath := printf "images/books/%s.jpg" $safeName }}
+                {{ $hasCover := fileExists (printf "static/%s" $coverPath) }}
+                <div class="center">
+                    <div class="book-box {{ if eq ($.scratch.Get "columnsCount") 1 }} alittle {{ end }}">
+                        <div class="book-cover {{ if $hasCover }}has-image{{ end }}" onclick="handleBookTap({{ (index $row "loopCount") }}, this)">
+                            {{ if $hasCover }}
+                            <img class="book-cover-img" src="/{{ $coverPath }}" alt="{{ $baseName }}" loading="lazy">
+                            {{ else }}
+                            <div class="book-cover-text">
+                                <span class="book-cover-title">{{ $baseName }}</span>
+                                <span class="book-cover-author">{{ $post.Params.author }}</span>
+                                {{ with (index $post.Params "pub-year") }}
+                                <span class="book-cover-year">{{ . }}</span>
+                                {{ end }}
+                            </div>
+                            {{ end }}
+                            <div class="book-preview">
+                                <div class="book-preview-content">
+                                    <h3 class="book-preview-title">{{ $baseName }}</h3>
+                                    <p class="book-preview-author">by {{ $post.Params.author }}</p>
+                                    <p class="book-preview-text">{{ $preview }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{ end }}
+        </div>
+    {{ end }}
+{{ end }}
+</div>

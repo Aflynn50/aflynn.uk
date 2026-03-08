@@ -1,0 +1,20 @@
+{{ partial "header.html" . }}
+<div class="container hero is-fullheight">
+{{ partial "navbar.html" . }}
+<section class="section">
+	<div class="book-slide-header">
+		<h1 class="book-slide-title">{{ .Title }}</h1>
+		<p class="book-slide-author">by {{ .Params.author }}{{ with (index .Params "pub-year") }} ({{ . }}){{ end }}</p>
+		{{ with (index .Params "date-finished") }}
+		<p class="book-slide-date">Read: {{ time.Format "January 2006" (time.AsTime .) }}</p>
+		{{ end }}
+	</div>
+	<div class="book-slide-body">
+		<div class="content">
+			{{ .Content }}
+		</div>
+	</div>
+</section>
+
+{{ partial "footer.html" . }}
+</div>
