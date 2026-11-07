@@ -1,3 +1,5 @@
 public/
 resources/
 hooks/
+
+.DS_Store
