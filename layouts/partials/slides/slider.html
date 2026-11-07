@@ -29,14 +29,14 @@
                             {{ $img = $img.Resize "1000x" }}
                         {{ end }}
                     {{ end }}
-                    {{ with $img.Exif }}
-                        {{ if eq .Tags.Orientation 8 }}
+                    {{ with $img.Meta }}
+                        {{ if eq .Orientation 8 }}
                             {{ $img = $img.Resize "1000x r90" }}
                         {{ end }}
-                        {{ if eq .Tags.Orientation 6 }}
+                        {{ if eq .Orientation 6 }}
                             {{ $img = $img.Resize "1000x r90" }}
                         {{ end }}
-                        {{ if eq .Tags.Orientation 3 }}
+                        {{ if eq .Orientation 3 }}
                             {{ $img = $img.Resize "1000x r180" }}
                         {{ end }}
                     {{ end }}
